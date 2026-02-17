@@ -18,7 +18,7 @@ CHALLENGES = [
             {"input": [1, 42], "expected": [42]},
             {"input": [0], "expected": [0]},
         ],
-        "thresholds": {"gold": 7, "silver": 10},
+        "thresholds": {"gold": 8, "silver": 10},
     },
     {
         "number": 2,

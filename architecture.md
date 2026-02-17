@@ -61,12 +61,12 @@ The FLAGS register contains three single-bit flags. Flags are updated after ever
 
 ## 6. I/O Ports
 
-The machine has numbered I/O ports (0-255). Each puzzle defines which ports carry input and which accept output.
+The syntax requires a port number (0-255), but in this implementation **port numbers are ignored**. All inputs are read sequentially from a single flat queue regardless of port, and all outputs are collected in order regardless of port. The port operand is required syntactically but has no semantic effect.
 
-- `READ Rd, port` reads one value from the given port into register Rd.
-- `WRITE port, Rs` writes the value in register Rs to the given port.
+- `READ Rd, port` reads the next value from the input queue into register Rd.
+- `WRITE port, Rs` appends the value in register Rs to the output queue.
 
-If no data is available on a `READ`, the machine blocks until data arrives. Writes are instantaneous.
+If no data is available on a `READ`, the machine halts with an error.
 
 ## 7. Instruction Set Reference
 
