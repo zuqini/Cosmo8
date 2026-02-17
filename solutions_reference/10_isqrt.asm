@@ -1,0 +1,13 @@
+READ R0, 0
+MOV R2, 128
+loop:
+OR R3, R1, R2
+MUL R4, R3, R3
+CMP R0, R4
+JC skip
+MOV R1, R3
+skip:
+SHR R2, R2, 1
+JNZ loop
+WRITE 1, R1
+HLT

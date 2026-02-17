@@ -1,0 +1,10 @@
+READ R0, 0
+MOV R2, 1
+loop:
+WRITE 1, R2
+ADD R3, R1, R2
+MOV R1, R2
+MOV R2, R3
+SUB R0, R0, 1
+JNZ loop
+HLT

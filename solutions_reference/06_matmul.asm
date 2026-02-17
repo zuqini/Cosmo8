@@ -1,0 +1,24 @@
+read_loop:
+READ R0, 0
+STORE [R7], R0
+ADD R7, R7, 1
+CMP R7, 8
+JNZ read_loop
+compute:
+AND R0, R5, 2
+AND R1, R5, 1
+ADD R1, R1, 4
+LOAD R2, [R0]
+LOAD R3, [R1]
+MUL R2, R2, R3
+ADD R0, R0, 1
+ADD R1, R1, 2
+LOAD R3, [R0]
+LOAD R4, [R1]
+MUL R3, R3, R4
+ADD R2, R2, R3
+WRITE 1, R2
+ADD R5, R5, 1
+CMP R5, 4
+JNZ compute
+HLT
