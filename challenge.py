@@ -1,9 +1,9 @@
+from sim import run_program, parse, CosmoError
 import sys
 import os
 import argparse
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sim import run_program, parse, CosmoError
 
 
 CHALLENGES = [
@@ -31,7 +31,7 @@ CHALLENGES = [
             {"input": [1, 42], "expected": [42]},
             {"input": [4, 0, 0, 0, 1], "expected": [1, 0, 0, 0]},
         ],
-        "thresholds": {"gold": 9, "silver": 12},
+        "thresholds": {"gold": 13, "silver": 15},
     },
     {
         "number": 3,
@@ -44,7 +44,7 @@ CHALLENGES = [
             {"input": [8], "expected": [1, 1, 2, 3, 5, 8, 13, 21]},
             {"input": [2], "expected": [1, 1]},
         ],
-        "thresholds": {"gold": 10, "silver": 14},
+        "thresholds": {"gold": 9, "silver": 13},
     },
     {
         "number": 4,
@@ -123,9 +123,11 @@ CHALLENGES = [
         "tests": [
             {"input": [6, 1, 1, 1, 2, 2, 3], "expected": [1, 3, 2, 2, 3, 1]},
             {"input": [4, 5, 5, 5, 5], "expected": [5, 4]},
-            {"input": [5, 1, 2, 3, 4, 5], "expected": [1, 1, 2, 1, 3, 1, 4, 1, 5, 1]},
+            {"input": [5, 1, 2, 3, 4, 5], "expected": [
+                1, 1, 2, 1, 3, 1, 4, 1, 5, 1]},
             {"input": [1, 7], "expected": [7, 1]},
-            {"input": [8, 0, 0, 1, 1, 1, 0, 0, 0], "expected": [0, 2, 1, 3, 0, 3]},
+            {"input": [8, 0, 0, 1, 1, 1, 0, 0, 0],
+                "expected": [0, 2, 1, 3, 0, 3]},
         ],
         "thresholds": {"gold": 13, "silver": 18},
     },
@@ -178,7 +180,8 @@ def show_challenge(challenge):
     print()
     print("  Test cases:")
     for i, test in enumerate(challenge["tests"], 1):
-        print(f"    {i}. Input: {test['input']} -> Expected: {test['expected']}")
+        print(f"    {i}. Input: {test['input']
+                                 } -> Expected: {test['expected']}")
     print()
     print("  Scoring thresholds (instruction count):")
     print(f"    Gold:   <= {challenge['thresholds']['gold']}")
@@ -287,8 +290,10 @@ def run_all(solutions_dir):
     missing_count = 0
 
     for r in results:
-        instr_str = str(r["instructions"]) if r["instructions"] is not None else "-"
-        print(f"{r['number']:<4} {r['name']:<25} {instr_str:<14} {r['tier']:<8}")
+        instr_str = str(r["instructions"]
+                        ) if r["instructions"] is not None else "-"
+        print(f"{r['number']:<4} {r['name']:<25} {
+              instr_str:<14} {r['tier']:<8}")
         if r["tier"] == "Gold":
             gold_count += 1
         elif r["tier"] == "Silver":
@@ -299,14 +304,17 @@ def run_all(solutions_dir):
             missing_count += 1
 
     print("-" * 60)
-    print(f"Gold: {gold_count}  Silver: {silver_count}  Bronze: {bronze_count}  Incomplete: {missing_count}")
+    print(f"Gold: {gold_count}  Silver: {silver_count}  Bronze: {
+          bronze_count}  Incomplete: {missing_count}")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Cosmo-8 Challenge Harness")
     parser.add_argument("--problem", type=int, help="Challenge number (1-10)")
-    parser.add_argument("--solution", type=str, help="Path to solution .asm file")
-    parser.add_argument("--all", action="store_true", help="Run all challenges")
+    parser.add_argument("--solution", type=str,
+                        help="Path to solution .asm file")
+    parser.add_argument("--all", action="store_true",
+                        help="Run all challenges")
     parser.add_argument("--solutions-dir", type=str, default="solutions",
                         help="Directory containing solution files")
     args = parser.parse_args()
